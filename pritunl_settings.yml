@@ -1,0 +1,54 @@
+---
+organizations:
+  - test_org_one
+  - test_org_two
+
+# If a user changes an organization, the org. will be deleted from the user, then added to the new org.
+users:
+  - name: mynameisjeff
+    groups: ['somegroup']
+    email: "jeff@yes.com"
+    disabled: False
+    client_to_client: False
+    organization_name: test_org_one
+  - name: mynameissomeone
+    groups: ['a_group_for_me', 'someone']
+    email: "yesyes@me.com"
+    disabled: False
+    organization_name: test_org_two
+
+# If a server is updated for its settings
+# It will be shutdown -> update settings -> started again
+servers:
+  - name: server_for_dev
+    groups: ['a_group_for_me', 'somegroup']
+    port: 8596
+    network: '10.75.0.0/24'
+  - name: server_for_me
+    groups: ['a_group_for_me']
+    port: 39472
+    network: '10.80.0.0/24'
+    dns_servers: ['8.9.10.1', '10.69.5.0']
+
+# Route 0.0.0.0/0 is always deleted, unless specified
+# If a route is updated or added to a server
+# The server is shutdown -> routes are updated -> server started
+routes:
+  - server: server_for_dev
+    network:
+      - "10.75.0.0/24"
+      - "10.69.69.0/24"
+      - "10.69.0.0/24"
+  - server: server_for_me
+    network:
+      - "10.80.0.0/24"
+      - "10.0.108.0/24"
+
+# If an organization is updated for a server,
+# the server is shutdown -> organizations are updated -> server started
+org_to_server:
+  - server: server_for_dev
+    org: ['test_org_one']
+  - server: server_for_me
+    org: ['test_org_one', 'test_org_two']
+
