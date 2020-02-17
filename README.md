@@ -1,7 +1,8 @@
 Pritunl management
 ------------------
 
-Developed an API client for Pritunl, written in Python3.
+Developed an API client for Pritunl, written in Python3, to enable Infrastructure as Code.
+
 Tested to work with Pritunl v1.29.2276.91 (Feb 2020)
 
 It manages:
